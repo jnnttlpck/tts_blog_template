@@ -13,16 +13,16 @@
 
   <div class="field">
     <%= form.label :author %>
-    <%= form.text_field :author, id: :comment_author %>
+    <%= form.text_field :author, placeholder: "Written By...", id: :comment_author %>
   </div>
 
   <div class="field">
     <%= form.label :comment_entry %>
-    <%= form.text_area :comment_entry, id: :comment_comment_entry %>
+    <%= form.text_area :comment_entry, placeholder: "What's on your mind?", id: :comment_comment_entry %>
   </div>
 
   <div class="field">
-    <%= form.hidden_field :post_id, value: @post_id %>
+    <%= form.hidden_field :post_id, value: @post.id %>
   </div>
 
   <div class="actions">
