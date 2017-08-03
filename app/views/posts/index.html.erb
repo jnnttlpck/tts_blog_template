@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+<div class="container">
+
+  <div class="row">
+    <%= @posts.each do |post| %>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3><%= post.title %></h3>
+        </div>
+        <div class="panel-body">
+          <h4><%= post.author %></h4>
+          <p><%= post.blog_entry %></p>
+        </div>
+        <div class="panel-footer">
+          <button type="button" class="btn btn-primary"><%= link_to 'Show', post %></button>
+          <button type="button" class="btn btn-warning"><%= link_to 'Edit', edit_post_path(post) %></button>
+          <button type="button" class="btn btn-danger"<%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+
+</div>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
