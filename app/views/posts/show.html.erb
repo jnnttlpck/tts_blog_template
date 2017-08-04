@@ -7,7 +7,7 @@
 
 <p>
   <strong>Author:</strong>
-  <%= @post.author %>
+  <%= @post.user.username %>
 </p>
 
 <p>
@@ -21,12 +21,12 @@
 </p>
 
 <div id="comments">
-  
+
   <%= render 'comments/form', comment: @comment %>
 
   <% @post.comments.each do |comment| %>
     <p>
-      <%= comment.author %> said...<br />
+      <%= comment.author %> said on <%= comment.created_at %><br />
       <%= comment.comment_entry %>
     </p>
   <% end %>
