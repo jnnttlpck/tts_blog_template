@@ -5,15 +5,17 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!-- <%= stylesheet_link_tag "/app/asssets/stylesheets/_variables.scss" %>
     <%= stylesheet_link_tag "/app/asssets/stylesheets/_bootswatch.scss" %> -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
   </head>
 
   <body>
     <div class="container">
       <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-top:10px">
           <div class="navbar-header">
             <a class="navbar-brand" href="/">Blog Template</a>
           </div>
@@ -33,22 +35,29 @@
               </div>
             </div>
           </form>
+          <div class="nav navbar-right">
+            <% if user_signed_in? %>
+
+              Welcome, <%= current_user.username %>
+              <% unless current_user.avatar.empty? %>
+                <%= image_tag current_user.avatar.url, id: "profile_thumb" %>
+              <% end %>
+              <% if current_user.avatar.empty? %>
+                <%= gravatar_tag current_user.email, size: 20 %>
+              <% end %>
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+
+            <% end %>
+          </div>
         </div>
       </nav>
 
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
 
-      <div class="pull-right">
-        <% if user_signed_in? %>
-          <p>
-            Welcome, <%= current_user.username %>
-          </p>
-          <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
-        <% end %>
-      </div>
-
+      <br />
+      <br />
       <%= yield %>
     </div>
   </body>

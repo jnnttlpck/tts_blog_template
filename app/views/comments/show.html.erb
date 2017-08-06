@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>Written:</strong>
+  <%= @comment.created_at.strftime("%b %d, %Y") %>
+</p>
+
+<p>
   <strong>Comment entry:</strong>
   <%= @comment.comment_entry %>
 </p>

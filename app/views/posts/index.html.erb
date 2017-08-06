@@ -2,8 +2,11 @@
   <p id="notice"><%= notice %></p>
 
 
-<h1>Posts</h1>
+<h1>All Posts</h1>
+
 <div class="container">
+
+  <%= link_to 'New Post', new_post_path, class: "btn btn-success btn-md" %>
 
   <div class="row">
     <% @posts.each do |post| %>
@@ -13,14 +16,15 @@
           <h3><%= post.title %></h3>
         </div>
         <div class="panel-body">
-          <h4>by <%= post.user.username %></h4>
+          <h4>by<%= post.user.username %></h4>
+          <h6><em>written : <%= post.created_at.strftime("%b %d, %Y") %></em></h6>
           <p><%= post.blog_entry %></p>
         </div>
         <div class="panel-footer">
-          <button type="button" class="btn btn-primary"><%= link_to 'Show', post %></button>
+          <%= link_to 'Show', post, class: "btn btn-primary btn-xs" %>
           <% if current_user.id == post.user.id %>
-            <button type="button" class="btn btn-warning"><%= link_to 'Edit', edit_post_path(post) %></button>
-            <button type="button" class="btn btn-danger"<%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning btn-xs" %>
+            <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
           <% end %>
         </div>
       </div>
@@ -32,5 +36,3 @@
 </div>
 
 <br>
-
-<%= link_to 'New Post', new_post_path %>

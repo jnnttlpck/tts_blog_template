@@ -16,10 +16,14 @@
       <% @comments.each do |comment| %>
         <tr>
           <td><%= comment.author %></td>
+          <h6><em>written : <%= comment.created_at.in_time_zone.strftime("%b %d, %Y %r") %></em></h6>
           <td><%= comment.comment_entry %></td>
           <td><%= link_to 'Show', comment %></td>
-          <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-          <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if current_user.id == comment.user.id %>
+            <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+            <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+          <
         </tr>
       <% end %>
     </tbody>

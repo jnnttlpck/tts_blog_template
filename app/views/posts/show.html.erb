@@ -11,6 +11,12 @@
 </p>
 
 <p>
+  <strong>Written:</strong>
+  <%= @post.created_at.in_time_zone(current_user.time_zone).strftime("%b %d, %r ") %>
+</p>
+
+
+<p>
   <strong>Blog entry:</strong>
   <%= @post.blog_entry %>
 </p>
@@ -23,10 +29,10 @@
 <div id="comments">
 
   <%= render 'comments/form', comment: @comment %>
-
+<br />
   <% @post.comments.each do |comment| %>
     <p>
-      <%= comment.author %> said on <%= comment.created_at %><br />
+      <%= comment.user.username %> said on <%= comment.created_at.in_time_zone(current_user.time_zone).strftime("%b %d, %r") %><br />
       <%= comment.comment_entry %>
     </p>
   <% end %>
