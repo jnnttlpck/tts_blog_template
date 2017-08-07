@@ -7,31 +7,36 @@
 <div class="container">
 
   <%= link_to 'New Post', new_post_path, class: "btn btn-success btn-md" %>
-
-  <div class="row">
-    <% @posts.each do |post| %>
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3><%= post.title %></h3>
+   <% @posts.each_slice(2) do |posts| %>
+      <div class="row">
+        <% posts.each do |post| %>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+             <h3><%= post.title %></h3>
+            </div>
+            <div class="panel-body">
+             <h4>by <%= post.user.username %></h4>
+             <% if post.user.avatar.blank? %>
+                <%= gravatar_tag post.user.email, size: 20 %>
+             <% else %>
+                <%= image_tag post.user.avatar.url, id: "profile_thumb" %>
+             <% end %>
+             <h6><em>written : <%= post.created_at.strftime("%b %d, %Y") %></em></h6>
+             <p><%= post.blog_entry %></p>
+            </div>
+            <div class="panel-footer">
+             <%= link_to 'View', post, class: "btn btn-primary btn-xs glyphicon glyphicon-eye-open" %>
+             <% if current_user.id == post.user.id %>
+                <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning btn-xs glyphicon glyphicon-pencil" %>
+                <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs glyphicon glyphicon-trash" %>
+             <% end %>
+            </div>
+          </div>
         </div>
-        <div class="panel-body">
-          <h4>by<%= post.user.username %></h4>
-          <h6><em>written : <%= post.created_at.strftime("%b %d, %Y") %></em></h6>
-          <p><%= post.blog_entry %></p>
-        </div>
-        <div class="panel-footer">
-          <%= link_to 'Show', post, class: "btn btn-primary btn-xs" %>
-          <% if current_user.id == post.user.id %>
-            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning btn-xs" %>
-            <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <% end %>
-  </div>
-
+        <% end %>
+       </div>
+   <% end %>
 
 </div>
 

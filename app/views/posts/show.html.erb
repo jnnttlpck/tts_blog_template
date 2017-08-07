@@ -1,13 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+  <h3><%= @post.title %></h3>
 
 <p>
   <strong>Author:</strong>
   <%= @post.user.username %>
+  <% if @post.user.avatar.blank? %>
+     <%= gravatar_tag @post.user.email %>
+  <% else %>
+     <%= image_tag @post.user.avatar.url, id: "profile_thumb" %>
+  <% end %>
 </p>
 
 <p>
@@ -15,10 +17,12 @@
   <%= @post.created_at.in_time_zone(current_user.time_zone).strftime("%b %d, %r ") %>
 </p>
 
+<p id= "post_show">
+   <%= @post.blog_entry %>
+</p>
 
 <p>
-  <strong>Blog entry:</strong>
-  <%= @post.blog_entry %>
+   <%= image_tag @post.pic.url %>
 </p>
 
 <p>
@@ -32,6 +36,7 @@
 <br />
   <% @post.comments.each do |comment| %>
     <p>
+      <%= image_tag comment.user.avatar.url, id: "profile_thumb" %>
       <%= comment.user.username %> said on <%= comment.created_at.in_time_zone(current_user.time_zone).strftime("%b %d, %r") %><br />
       <%= comment.comment_entry %>
     </p>

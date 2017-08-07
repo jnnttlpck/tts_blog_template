@@ -9,7 +9,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!-- <%= stylesheet_link_tag "/app/asssets/stylesheets/_variables.scss" %>
     <%= stylesheet_link_tag "/app/asssets/stylesheets/_bootswatch.scss" %> -->
-    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
   </head>
 
   <body>
@@ -39,11 +38,10 @@
             <% if user_signed_in? %>
 
               Welcome, <%= current_user.username %>
-              <% unless current_user.avatar.empty? %>
-                <%= image_tag current_user.avatar.url, id: "profile_thumb" %>
-              <% end %>
-              <% if current_user.avatar.empty? %>
-                <%= gravatar_tag current_user.email, size: 20 %>
+              <% if current_user.avatar.blank? %>
+                 <%= gravatar_tag current_user.email, size: 20 %>
+              <% else %>
+                 <%= image_tag current_user.avatar.url, id: "profile_thumb" %>
               <% end %>
               <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
